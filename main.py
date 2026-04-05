@@ -116,18 +116,7 @@ Answer ONLY in this exact JSON format, no markdown, no extra text:
 Question: {body.question}"""
 
     # Gemini API call — using gemini-2.5-flash
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
-
-    r = None
-    async with httpx.AsyncClient() as client:
-        r = await client.post(url,
-            headers={"Content-Type": "application/json"},
-            json={
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {"temperature": 0.3, "maxOutputTokens": 800}
-            },
-            timeout=20)
-
+    https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={GEMINI_API_KEY}
     if not r or r.status_code != 200:
         import logging
         logging.error(f"GEMINI ERROR: {r.status_code} — {r.text}")
