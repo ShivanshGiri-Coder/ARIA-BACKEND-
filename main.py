@@ -8,7 +8,7 @@ app = FastAPI()
 app.add_middleware(CORSMiddleware,
     allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-GEMINI_API_KEY = "AIzaSyCO5f1vVZQDIVDT1SEko-jVruRRkyocz3s" 
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 RATE_PER_MIN  = 6
 RATE_PER_HOUR = 40
 RATE_PER_DAY  = 150
