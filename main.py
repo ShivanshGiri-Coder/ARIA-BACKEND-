@@ -115,10 +115,20 @@ Answer ONLY in this exact JSON format, no markdown, no extra text:
 {{"def":"short definition in 1 sentence","exp":"clear explanation in 2-3 sentences","ex":"a real example","tip":"one exam tip for students","subject":"maths or science or english or general"}}
 Question: {body.question}"""
 
-    # Gemini API call — using gemini-2.5-flash
-      url=  f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={GEMINI_API_KEY}
+    # Gemini API call — using gemini-2.0-flash-lite
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={GEMINI_API_KEY}"
+
+    import logging
+    async with httpx.AsyncClient() as client:
+        r = await client.post(url,
+            headers={"Content-Type": "application/json"},
+            json={
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {"temperature": 0.3, "maxOutputTokens": 800}
+            },
+            timeout=20)
+
     if not r or r.status_code != 200:
-        import logging
         logging.error(f"GEMINI ERROR: {r.status_code} — {r.text}")
         raise HTTPException(500, f"Gemini API error: {r.text}")
     data = r.json()
