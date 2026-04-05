@@ -116,7 +116,7 @@ Answer ONLY in this exact JSON format, no markdown, no extra text:
 Question: {body.question}"""
 
     # Gemini API call — using gemini-2.5-flash
-    https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={GEMINI_API_KEY}
+   url=  f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={GEMINI_API_KEY}
     if not r or r.status_code != 200:
         import logging
         logging.error(f"GEMINI ERROR: {r.status_code} — {r.text}")
