@@ -129,8 +129,9 @@ Question: {body.question}"""
             timeout=20)
 
     if not r or r.status_code != 200:
+        import logging
+        logging.error(f"GEMINI ERROR: {r.status_code} — {r.text}")
         raise HTTPException(500, f"Gemini API error: {r.text}")
-
     data = r.json()
 
     # Extract text from Gemini response
